@@ -1,0 +1,24 @@
+<!--상세 페이지-->
+{% extends "main.html" %}
+{% block contents %}
+
+<br>
+제목: {{result.title}}
+<br>
+작성자 이름: {{result.name}}
+<br>
+등록시간: {{result.pub_date|formatdatetime}}
+<br>
+내용: {{result.contents}}
+<br>
+조회수: {{result.view}}
+<br>
+
+<a href="{{url_for('board.lists', page=page, search=search, keyword=keyword)}}">리스트</a>
+<br>
+{% if session["id"] == result.writer_id %}
+<a href="{{url_for('board.board_delete', idx=result.id)}}">글삭제</a>
+<a href="{{url_for('board.board_edit', idx=result.id)}}">글수정</a>
+{% endif %}
+
+{%  endblock %}

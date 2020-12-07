@@ -1,0 +1,42 @@
+<!-- eidt.html -->
+{% extends "main.html" %}
+{% block contents %}
+
+        <script>
+            function checkFrom(){
+                if($.trim($("#title").val()) == "" || $.trim($("#contents").val()) == ""){
+                    alert("제목 또는 텍스트를 수정해 주세요 ");
+                    $("#title").select().focus()
+                    return false;
+                }
+                return true;
+            }
+        </script>
+
+        <table>
+            <form name="form" method="POST" action="{{url_for('board.board_edit',idx=data._id)}}" onsubmit="return checkFrom()">
+            <thead>
+                <caption>글수정</caption>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>작성자</td>
+                    <!--로그인한 사람만 작성가능, 로그인자 정보자동표시-->
+                    <td><input type="text" name="name" value="{{session['name']}}" readonly></td>
+                </tr>
+                <tr>
+                    <td>제목</td>
+                    <td><input type="text" name="title" id="title" value="{{data.title}}"></td>
+                </tr>
+                <tr>
+                    <td>내용</td>
+                    <td><textarea name="contents" id="contents">{{data.contents}}</textarea></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><input type="submit" value="수정하기"></td>
+                </tr>
+            </tbody>
+            </form>
+        </table>
+
+{% endblock %}

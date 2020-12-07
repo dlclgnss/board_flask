@@ -1,0 +1,56 @@
+<!-- login-->
+{% extends "main.html" %}
+{% block contents %}
+<!--javascript(프론테엔드에서 검증)-->
+<script>
+    function CheckForm(){
+        //tirm 공백제거
+        if ($.trim($("#email").val()) == ""){
+                alert("이메일을 입력하세요")
+            $("#email").focus();
+            return false;
+        }
+
+        if(!validateEmail($.trim($("#email").val()))){
+            alert("이메일 형식이 올바르지 않습니다.")
+            $("#email").focus();
+            return false;
+        }
+
+        if ($.trim($("#password").val()) == ""){
+                alert("비밀번호를 입력하세요")
+            $("#password").focus();
+            return false;
+        }
+        return true;
+    }   
+</script>
+
+<table>
+    <form name="form" action="{{url_for('member.member_login')}}" method="POST" onsubmit="return CheckForm()">
+
+    {% if next_url %}   
+        <input type="hidden" name="next_url" value="{{ next_url }}">
+        <!--value="{{ next_url }}" 해당 페이지로 넘겨준다.-->
+    {% endif %}
+    
+    <thead>
+        <caption>회원 로그인</caption>
+    </thead>
+    <tbody>
+        <tr>
+            <td>이메일</td>
+            <td><input type="text" name="email" id="email"></td>
+        </tr>
+        <tr>
+            <td>비밀번호</td>
+            <td><input type="password" name="password" id="password"></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="로그인"></td>
+        </tr>
+    </tbody>
+    </form>
+</table>
+
+{% endblock %}

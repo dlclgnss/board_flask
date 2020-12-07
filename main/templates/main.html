@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{title}}</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.js"></script>
+    <script>
+        //ac_adds@gmail.com
+        //첫글자는 영숫자,[-_.]문자가 나올수도 있고 안나올수도 있고=> 물음표(?) 그다움 영숫자문자가나오고,패턴(*)이 될수있다.
+        //{2,3} 예).com .jp .kr 등등 2글자나 3글자로 끝나야 한다.
+        //i 대소문자구분없음
+        function validateEmail(email){
+            var pattern = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+            return pattern.test(email) 
+        }
+    </script>
+
+    <!--alert출력메세지-->
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <script>
+                alert("{{ messages[-1] }}"); // 맨마지막 메세지로 출력
+            </script>
+        {% endif %}
+    {% endwith %}
+</head>
+<body>
+    <!--사이트에 윗부부이나 풋터쪽에 고정적으로 넣고싶은 기능은 include로 포함시키는 경우가많다.-->
+    {% include "menu.html" %}
+    <br>
+    {% block contents %}
+    {% endblock%}
+    
+</body>
+</html>

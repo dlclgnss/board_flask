@@ -1,0 +1,50 @@
+<!-- 글 작성 -->
+
+{% extends "main.html" %}
+{% block contents %}
+
+    <script>
+        function checkForm(){
+            if($.trim($("#title").val()) == ""){
+                alert("제목을 입력해주세요!");
+                $("#title").focus();
+                return false;
+            }
+
+            if($.trim($("#contents").val()) == ""){
+                alert("내용을 입력해주세요!");
+                $("#contents").focus();
+                return false;
+            }
+            return true;
+            
+        }
+    </script>
+
+        <table>
+            <form name="form" method="POST" action="{{url_for('board.board_write')}}" onsubmit="return checkForm()">
+            <thead>
+                <caption>글작성</caption>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>작성자</td>
+                    <!--로그인한 사람만 작성가능, 로그인자 정보자동표시-->
+                    <td><input type="text" name="name" value="{{session['name']}}" readonly></td>
+                </tr>
+                <tr>
+                    <td>제목</td>
+                    <td><input type="text" name="title" id="title"></td>
+                </tr>
+                <tr>
+                    <td>내용</td>
+                    <td><textarea name="contents" id="contents"></textarea></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><input type="submit" value="작성하기"></td>
+                </tr>
+            </tbody>
+            </form>
+        </table>
+
+{% endblock %}
